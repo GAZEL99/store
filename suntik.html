@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suntik Sosmed - Order Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #23d5ca;
+            --primary-dark: #1ab5ab;
+            --secondary: #6777ef;
+            --accent: #8a63ff;
+            --light: #ffffff;
+            --dark: #333333;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .form-container {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background-color: #fafafa;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(35, 213, 202, 0.2);
+            background-color: white;
+        }
+        
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            background: linear-gradient(to right, rgba(35, 213, 202, 0.05), rgba(104, 119, 239, 0.1));
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            border: 1px dashed var(--primary);
+        }
+        
+        .price-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .price-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+        
+        .price-value {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--secondary));
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(104, 119, 239, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .service-info {
+            background: linear-gradient(to right, rgba(35, 213, 202, 0.05), rgba(104, 119, 239, 0.1));
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            border-left: 3px solid var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .service-info p {
+            margin: 5px 0;
+        }
+        
+        .total-price {
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            background: linear-gradient(to right, rgba(35, 213, 202, 0.05), rgba(104, 119, 239, 0.1));
+            border-radius: var(--border-radius);
+        }
+        
+        .total-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+        
+        .total-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .note {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 5px;
+            font-style: italic;
+            font-weight: 300;
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .price-display {
+                flex-direction: column;
+            }
+            
+            .price-item:not(:last-child) {
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pilih Layanan</h1>
+            <p>Tingkatkan media sosial Anda dengan mudah</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="platform">Platform Media Sosial *</label>
+                    <select id="platform" class="form-control" required>
+                        <option value=""></option>
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="twitter">Twitter</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="serviceType">Jenis Layanan *</label>
+                    <select id="serviceType" class="form-control" disabled required>
+                        <option value=""></option>
+                    </select>
+                </div>
+                
+                <div class="service-info">
+                    <p id="serviceDescription">Silakan pilih platform dan layanan untuk melihat detail</p>
+                    <p id="deliveryTime">-</p>
+                    <p id="serviceNote" class="note"></p>
+                </div>
+                
+                <div class="price-display">
+                    <div class="price-item">
+                        <div class="price-label">Harga per 1000</div>
+                        <div class="price-value" id="pricePer1000">Rp 0</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="price-label">Minimal Pesanan</div>
+                        <div class="price-value" id="minOrder">0</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="price-label">Kecepatan</div>
+                        <div class="price-value" id="deliverySpeed">-</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Jumlah Pesanan *</label>
+                    <input type="number" id="quantity" class="form-control" min="1" required disabled>
+                    <p id="maxOrder" class="note"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="target">Target (Username/Link) *</label>
+                    <input type="text" id="target" class="form-control" placeholder="Contoh: @username atau https://..." required disabled>
+                </div>
+                
+                <div class="total-price">
+                    <div class="total-label">Total Pembayaran</div>
+                    <div class="total-value" id="totalPrice">Rp 0</div>
+                </div>
+                
+                <button type="submit" class="btn" disabled>Pesan Sekarang</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Service data
+        const services = {
+            instagram: {
+                followers: {
+                    name: "Followers",
+                    description: "Followers Instagram berkualitas tinggi dengan akun aktif",
+                    price: 80000,
+                    min: 100,
+                    delivery: "3-7 hari kerja",
+                    note: "Garansi 30 hari. No drop."
+                },
+                likes: {
+                    name: "Likes",
+                    description: "Likes postingan Instagram dari akun real",
+                    price: 50000,
+                    min: 50,
+                    delivery: "1-3 hari kerja",
+                    note: "Kualitas tinggi dengan profil asli"
+                },
+                views: {
+                    name: "Views",
+                    description: "Views untuk Stories/Reels Instagram",
+                    price: 30000,
+                    min: 100,
+                    delivery: "1-2 hari kerja",
+                    note: "Retention tinggi"
+                }
+            },
+            tiktok: {
+                followers_slow: {
+                    name: "Follower Slow",
+                    description: "TikTok Follower Slow - Akun harus memiliki konten",
+                    price: 25000,
+                    min: 1000,
+                    delivery: "4-7 hari",
+                    note: "Pesanan akan diselesaikan secara otomatis jika akun tidak memiliki konten. Sistem mungkin mengalami overload.",
+                    max: ""
+                },
+                followers_fast: {
+                    name: "Follower Fast",
+                    description: "TikTok Follower Fast - Delivery cepat",
+                    price: 40000,
+                    min: 1000,
+                    delivery: "24-72 jam",
+                    note: "",
+                    max: ""
+                },
+                likes: {
+                    name: "Like",
+                    description: "TikTok Likes - Kualitas tinggi dengan profil REAL",
+                    price: 7000,
+                    min: 1000,
+                    delivery: "30 menit",
+                    note: "Garansi 30 hari. Kualitas bagus, NO DROP. Max 1M per hari. Bonus view 1.000-10.000",
+                    max: "100000"
+                },
+                comments: {
+                    name: "Komentar Kostum",
+                    description: "TikTok Komentar Kostum - Komentar custom",
+                    price: 150000,
+                    min: 1000,
+                    delivery: "3x24 jam",
+                    note: "Speed: 1K per jam. No Drop & Garansi 30 hari",
+                    max: ""
+                },
+                saves: {
+                    name: "Save",
+                    description: "TikTok Save - Penyimpanan video",
+                    price: 4000,
+                    min: 1000,
+                    delivery: "1x24 jam",
+                    note: "Garansi 30 hari. Max 5K per hari",
+                    max: "5000"
+                },
+                shares: {
+                    name: "Share",
+                    description: "TikTok Share - Pembagian video",
+                    price: 3000,
+                    min: 1000,
+                    delivery: "1 jam",
+                    note: "",
+                    max: ""
+                }
+            },
+            youtube: {
+                subscribers: {
+                    name: "Subscribers",
+                    description: "Subscribers YouTube berkualitas",
+                    price: 150000,
+                    min: 100,
+                    delivery: "7-14 hari kerja",
+                    note: "Akun aktif dengan profil"
+                },
+                views: {
+                    name: "Views",
+                    description: "Views YouTube dengan high retention",
+                    price: 50000,
+                    min: 1000,
+                    delivery: "3-5 hari kerja",
+                    note: "Retention 50-70%"
+                },
+                likes: {
+                    name: "Likes",
+                    description: "Likes untuk video YouTube",
+                    price: 70000,
+                    min: 100,
+                    delivery: "3-5 hari kerja",
+                    note: ""
+                }
+            },
+            twitter: {
+                followers: {
+                    name: "Followers",
+                    description: "Followers Twitter aktif",
+                    price: 120000,
+                    min: 100,
+                    delivery: "5-10 hari kerja",
+                    note: "Akun aktif dengan profil"
+                },
+                retweets: {
+                    name: "Retweets",
+                    description: "Retweets untuk tweet Anda",
+                    price: 80000,
+                    min: 50,
+                    delivery: "1-3 hari kerja",
+                    note: ""
+                },
+                likes: {
+                    name: "Likes",
+                    description: "Likes untuk tweet Anda",
+                    price: 60000,
+                    min: 50,
+                    delivery: "1-3 hari kerja",
+                    note: ""
+                }
+            }
+        };
+
+        // DOM elements
+        const platformSelect = document.getElementById('platform');
+        const serviceTypeSelect = document.getElementById('serviceType');
+        const quantityInput = document.getElementById('quantity');
+        const targetInput = document.getElementById('target');
+        const orderButton = document.querySelector('.btn');
+        const serviceDescription = document.getElementById('serviceDescription');
+        const deliveryTime = document.getElementById('deliveryTime');
+        const serviceNote = document.getElementById('serviceNote');
+        const pricePer1000 = document.getElementById('pricePer1000');
+        const minOrder = document.getElementById('minOrder');
+        const deliverySpeed = document.getElementById('deliverySpeed');
+        const totalPrice = document.getElementById('totalPrice');
+        const maxOrderNote = document.getElementById('maxOrder');
+
+        // Event listeners
+        platformSelect.addEventListener('change', updateServiceTypes);
+        serviceTypeSelect.addEventListener('change', updateServiceDetails);
+        quantityInput.addEventListener('input', calculateTotal);
+
+        // Update service types based on selected platform
+        function updateServiceTypes() {
+            const platform = platformSelect.value;
+            
+            // Reset service type select
+            serviceTypeSelect.innerHTML = '<option value="">-- Pilih Layanan --</option>';
+            serviceTypeSelect.disabled = !platform;
+            
+            if (platform && services[platform]) {
+                // Enable service type select
+                serviceTypeSelect.disabled = false;
+                
+                // Add options for each service type
+                Object.keys(services[platform]).forEach(service => {
+                    const option = document.createElement('option');
+                    option.value = service;
+                    option.textContent = `${services[platform][service].name} (Rp ${(services[platform][service].price).toLocaleString('id-ID')}/1k)`;
+                    serviceTypeSelect.appendChild(option);
+                });
+            }
+            
+            // Reset other fields
+            resetForm();
+        }
+
+        // Update service details when service type is selected
+        function updateServiceDetails() {
+            const platform = platformSelect.value;
+            const service = serviceTypeSelect.value;
+            
+            if (platform && service && services[platform] && services[platform][service]) {
+                const serviceData = services[platform][service];
+                
+                // Update service info
+                serviceDescription.textContent = serviceData.description;
+                deliveryTime.textContent = `Waktu penyelesaian: ${serviceData.delivery}`;
+                serviceNote.textContent = serviceData.note || '';
+                deliverySpeed.textContent = serviceData.delivery;
+                
+                // Update price info
+                pricePer1000.textContent = `Rp ${serviceData.price.toLocaleString('id-ID')}`;
+                minOrder.textContent = serviceData.min;
+                
+                // Set max order note if available
+                if (serviceData.max) {
+                    maxOrderNote.textContent = `Max order: ${serviceData.max} per hari`;
+                    quantityInput.max = serviceData.max;
+                } else {
+                    maxOrderNote.textContent = '';
+                    quantityInput.removeAttribute('max');
+                }
+                
+                // Enable quantity input and set min value to 1
+                quantityInput.disabled = false;
+                quantityInput.min = 1;
+                quantityInput.value = serviceData.min;
+                
+                // Enable target input
+                targetInput.disabled = false;
+                targetInput.value = '';
+                
+                // Enable order button
+                orderButton.disabled = false;
+                
+                // Calculate initial total
+                calculateTotal();
+            } else {
+                resetForm();
+            }
+        }
+
+        // Calculate total price based on quantity
+        function calculateTotal() {
+            const platform = platformSelect.value;
+            const service = serviceTypeSelect.value;
+            const quantity = parseInt(quantityInput.value) || 0;
+            
+            if (platform && service && services[platform] && services[platform][service] && quantity > 0) {
+                const serviceData = services[platform][service];
+                const calculatedPrice = Math.round((quantity * serviceData.price) / 1000);
+                totalPrice.textContent = `Rp ${calculatedPrice.toLocaleString('id-ID')}`;
+            } else {
+                totalPrice.textContent = 'Rp 0';
+            }
+        }
+
+        // Reset form fields
+        function resetForm() {
+            serviceDescription.textContent = 'Silakan pilih platform dan layanan untuk melihat detail';
+            deliveryTime.textContent = '-';
+            deliverySpeed.textContent = '-';
+            serviceNote.textContent = '';
+            pricePer1000.textContent = 'Rp 0';
+            minOrder.textContent = '0';
+            quantityInput.disabled = true;
+            quantityInput.value = '';
+            maxOrderNote.textContent = '';
+            targetInput.disabled = true;
+            targetInput.value = '';
+            totalPrice.textContent = 'Rp 0';
+            orderButton.disabled = true;
+        }
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            if (!platformSelect.value || !serviceTypeSelect.value || !quantityInput.value || !targetInput.value) {
+                alert('Harap lengkapi semua field yang wajib diisi!');
+                return;
+            }
+            
+            // Get form data
+            const platform = platformSelect.value;
+            const service = serviceTypeSelect.value;
+            const quantity = quantityInput.value;
+            const target = targetInput.value;
+            const serviceData = services[platform][service];
+            const price = Math.round((quantity * serviceData.price) / 1000);
+            
+            // Redirect to payment page with data
+            const queryParams = new URLSearchParams();
+            queryParams.append('platform', platform);
+            queryParams.append('service', service);
+            queryParams.append('quantity', quantity);
+            queryParams.append('target', target);
+            queryParams.append('price', price);
+            queryParams.append('serviceName', serviceData.name);
+            window.location.href = `pay.html?${queryParams.toString()}`;
+            
+            // Send email to admin
+            sendAdminEmail(platform, serviceData.name, quantity, target, price);
+        });
+
+        // Function to send email to admin using FormSubmit
+        function sendAdminEmail(platform, serviceName, quantity, target, price) {
+            // Replace with your email
+            const adminEmail = 'xyzopedia@gmail.com';
+            
+            const emailData = {
+                service: serviceName,
+                platform: platform,
+                quantity: quantity,
+                target: target,
+                price: `Rp ${price.toLocaleString('id-ID')}`,
+                date: new Date().toLocaleString()
+            };
+            
+            // Using FormSubmit
+            fetch('https://formsubmit.co/ajax/' + adminEmail, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: `Pesanan Baru - ${serviceName}`,
+                    _template: 'table',
+                    ...emailData
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Email notification sent'))
+            .catch(error => console.error('Error sending email:', error));
+        }
+    </script>
+</body>
+</html>
